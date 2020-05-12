@@ -1,0 +1,136 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Area of a Shape</title>
+     <link rel="stylesheet" type="text/css" href="main.css">
+</head>
+
+<body>
+<div class="conatiner">
+    <div class="neu">
+    <form action="javascript:calculateArea()" onchange="javascript:updateForm()">
+        
+        <label for="id_shapes">Select a shape</label>
+        <select id="id_shapes">
+            <option value="circle" selected>Circle</option>
+            <option value="triangle">Triangle</option>
+            <option value="square">Square</option>
+            <option value="rectangle">Rectangle</option>
+        </select>
+
+        <br><br>
+
+        <div id="id_inputs_circle">
+            <label for="id_radius">Radius</label>
+            <input class="inp" id="id_radius" type="number" min="0" step="any" placeholder="Enter a value">
+            <h2><em>A = &Pi;r<sup>2</sup></em></h2>
+            <h2><em>P = 2&Pi;r</em></h2>
+        </div>
+
+        <div id="id_inputs_triangle" hidden>
+            <label for="id_base">Base&emsp;</label>
+            <input class="inp" id="id_base" type="number" min="0" step="any" placeholder="Enter a value"><br>
+            <label for="id_height">Height</label>
+            <input class="inp" id="id_height" type="number" min="0" step="any" placeholder="Enter a value">
+            <h2><em>A = <sup>bh</sup>&frasl;<sub>2</sub></em></h2>
+        </div>
+
+        <div id="id_inputs_square" hidden>
+            <label for="id_side">Side</label>
+            <input class="inp" id="id_side" type="number" min="0" step="any" placeholder="Enter a value">
+            <h2><em>A = s<sup>2</sup></em></h2>
+            <h2><em>P = 4s</em></h2>
+        </div>
+
+        <div id="id_inputs_rectangle" hidden>
+            <label for="id_length">Length</label>
+            <input class="inp" id="id_length" type="number" min="0" step="any" placeholder="Enter a value"><br>
+            <label for="id_width">Width&nbsp</label>
+            <input class="inp" id="id_width" type="number" min="0" step="any" placeholder="Enter a value">
+            <h2><em>A = lw</em></h2>
+            <h2><em>P = 2(l+b)</em></h2>
+        </div>
+
+        <input id = 'btn' type="submit" value="Calculate">
+        <p id="id_output"></p>
+    </form>
+</div>
+</div>
+<script>
+    function updateForm() {
+        
+        // hide all inputs
+        document.getElementById("id_inputs_circle").hidden = true;
+        document.getElementById("id_inputs_triangle").hidden = true;
+        document.getElementById("id_inputs_square").hidden = true;
+        document.getElementById("id_inputs_rectangle").hidden = true;
+
+        // get the selected shape and show its inputs
+        let shape = document.getElementById("id_shapes").value;
+        switch (shape) {
+            case "circle":
+                document.getElementById("id_inputs_circle").hidden = false;
+                break;
+            case "triangle":
+                document.getElementById("id_inputs_triangle").hidden = false;
+                break;
+            case "square":
+                document.getElementById("id_inputs_square").hidden = false;
+                break;
+            case "rectangle":
+                document.getElementById("id_inputs_rectangle").hidden = false;
+                break;
+        }
+    }
+
+    function calculateArea() {
+
+        // get the selected shape 
+        let shape = document.getElementById("id_shapes").value;
+        
+        // calculate the shape's area
+        let area = 0;
+        switch (shape) {
+            case "circle":
+                let radius = Number(document.getElementById("id_radius").value);
+                area = Math.PI * radius * radius;
+                perimeter = 2 * Math.PI * radius;
+                break;
+            case "triangle":
+                let base = Number(document.getElementById("id_base").value);
+                let height = Number(document.getElementById("id_height").value);
+                area = base * height / 2;
+                perimeter = 0;
+                break;
+            case "square":
+                let side = Number(document.getElementById("id_side").value);
+                area = side * side;
+                perimeter = 4 * side;
+                break;
+            case "rectangle":
+                let length = Number(document.getElementById("id_length").value);
+                let width = Number(document.getElementById("id_width").value);
+                area = length * width;
+                perimeter = (length + width) * 2;
+                break;
+        }
+
+        // output the area
+        if (shape == 'triangle'){
+             document.getElementById("id_output").innerHTML = "Area = " + area.toFixed(2) ;
+         }
+         else if(shape == "circle"){
+            document.getElementById("id_output").innerHTML = "Area = " + area.toFixed(2) + " Circumference = " + perimeter.toFixed(2);
+         }
+         else{
+            document.getElementById("id_output").innerHTML = "Area = " + area.toFixed(2) + " Perimeter = " + perimeter.toFixed(2);
+         }
+        
+        
+    }
+</script>
+</body>
+</html>
